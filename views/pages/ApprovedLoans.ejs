@@ -1,0 +1,45 @@
+<%- include("../includes/head"); %>
+<% layout("./layouts/boilerplate") %>
+<style>
+    .mt-3{
+        border: 2px solid rgb(236, 231, 231);
+    }
+</style>
+<div class="mb-3 mt-3 p-2">
+<% for (let loan of loans) { %>
+  <% if (loan.isApproved) { %>
+    <div class="flex d-flex flex-column border-top border-right" style="border-color: #ccc;">
+      <div class="p-2 ml-3 mr-3 flex d-flex flex-row">
+        <label for="staticEmail" class="col-6 col-form-label">Email</label>
+        <input type="text" readonly class="form-control-plaintext" id="staticEmail" name="loan_id" value="<%= loan.loan_id %>">
+      </div>
+      <div class="p-2 ml-3 mr-3 flex d-flex flex-row">
+        <div class="col-6">Requested By</div>
+        <div><%= loan.user.name %></div>
+      </div>
+      <div class="p-2 ml-3 mr-3 flex d-flex flex-row">
+        <div class="col-6">Email</div>
+        <div><%= loan.user.email %></div>
+      </div>
+      <div class="p-2 ml-3 mr-3 flex d-flex flex-row">
+        <div class="col-6">Amount</div>
+        <div><%= loan.amount %></div>
+      </div>
+      <div class="p-2 ml-3 mr-3 flex d-flex flex-row">
+        <div class="col-6">Tenure</div>
+        <div><%= loan.tenure %></div>
+      </div>
+      <div class="p-2 ml-3 mr-3 flex d-flex flex-row">
+        <div class="col-6">Loan Type</div>
+        <div><%= loan.loantype %></div>
+      </div>
+      <div class="p-2 ml-3 mr-3 flex d-flex flex-row">
+        <div class="col-6">Status</div>
+        <div style="color: green;">Approved</div>
+      </div>
+    </div>
+  <% } else { %>
+    <div class="center" style="background-color: #E6E6E6; border-bottom: 0; text-align: center;">No loan requests</div>
+  <% } %>
+<% } %>
+</div>

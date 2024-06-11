@@ -1,0 +1,58 @@
+<%- include("../includes/head"); %>
+<% layout("./layouts/boilerplate") %>
+
+<style>
+    .form-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .form-container {
+        background-color: #fff;
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    .form-container h2 {
+        color: #45a049;
+        margin-bottom: 20px;
+    }
+
+    .form-container input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    .form-container input[type="submit"] {
+        background-color: #d9534f; /* Using Bootstrap danger color */
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+    }
+
+    .form-container input[type="submit"]:hover {
+        background-color: #c9302c; /* Darker shade for hover effect */
+    }
+</style>
+
+<div class="form-wrapper">
+    <div class="form-container">
+        <h2>Enter OTP to Delete Account</h2>
+        <form action="/otp" method="post">
+            <input type="text" name="otp_v" placeholder="Enter OTP" required>
+            <input type="submit" value="Delete" class="btn btn-danger">
+        </form>
+    </div>
+</div>

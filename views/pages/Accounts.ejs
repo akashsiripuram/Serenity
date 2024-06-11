@@ -1,0 +1,81 @@
+<%- include("../includes/head"); %>
+<% layout("./layouts/boilerplate") %>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6">
+            <h1>Customers</h1>
+        </div>
+        <div class="col-md-6 d-flex align-items-center justify-content-end">
+            <input type="text" id="searchInput" class="form-control w-50" placeholder="Search by name" onkeyup="filterTable()">
+        </div>
+    </div>
+
+    <table class="table mt-3">
+        <thead>
+            <tr>
+                <th scope="col">Full Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Date of birth</th>
+                <th scope="col">View</th>
+            </tr>
+        </thead>
+        <tbody id="customersTableBody">
+            <% for (let acc of allAccounts) { %>
+            <tr>
+                <th scope="row"><%= acc.name %></th>
+                <td><%= acc.email %></td>
+                <td><%= acc.phone %></td>
+                <td><%= acc.dateofbirth.toLocaleString().substring(0, 9) %></td>
+                <td><a href="/customer/info/<%= acc._id %>" class="btn btn-primary">View</a></td>
+            </tr>
+            <% } %>
+        </tbody>
+    </table>
+    <div id="noResultsMessage" class="text-center mt-3" style="display: none;">
+        <p>No results found</p>
+    </div>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- Font Awesome -->
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+<!-- JavaScript for Search Functionality -->
+<script>
+    function filterTable() {
+        // Get the value of the search input
+        let input = document.getElementById('searchInput');
+        let filter = input.value.toLowerCase();
+        let tableBody = document.getElementById('customersTableBody');
+        let rows = tableBody.getElementsByTagName('tr');
+        let noResultsMessage = document.getElementById('noResultsMessage');
+        let found = false;
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (let i = 0; i < rows.length; i++) {
+            let cells = rows[i].getElementsByTagName('th');
+            if (cells.length > 0) {
+                let nameCell = cells[0];
+                let nameValue = nameCell.textContent || nameCell.innerText;
+                if (nameValue.toLowerCase().indexOf(filter) > -1) {
+                    rows[i].style.display = '';
+                    found = true;
+                } else {
+                    rows[i].style.display = 'none';
+                }
+            }
+        }
+
+        // Display "No results found" message if no rows are visible
+        if (found) {
+            noResultsMessage.style.display = 'none';
+        } else {
+            noResultsMessage.style.display = 'block';
+        }
+    }
+</script>

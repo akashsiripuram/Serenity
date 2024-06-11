@@ -1,0 +1,208 @@
+<%- include("../includes/head"); %>
+<% layout("./layouts/boilerplate") %>
+<style>
+  .transaction-record {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 10px;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .transaction-date, .transaction-amount {
+    flex: 1;
+  }
+
+  .transaction-type {
+    flex: 1;
+    text-align: center;
+    padding: 5px;
+    border-radius: 5px;
+    font-weight: bold;
+  }
+
+  .transaction-type.debit {
+    color: red;
+    border: 1px solid red;
+  }
+
+  .transaction-type.credit {
+    color: green;
+    border: 1px solid green;
+  }
+
+  .copy-icon {
+    cursor: pointer;
+  }
+
+  .no-transactions {
+    text-align: center;
+    font-size: 1.2em;
+    color: gray;
+    padding: 10px;
+  }
+
+  .main-dash {
+    display: flex;
+    justify-content: center;
+  }
+
+  .personal-loan-calculator, .home-loan-calculator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin: 10px;
+    padding: 10px;
+    width: 45%;
+  }
+
+  .account-item {
+    text-align: center;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin: 10px;
+    padding: 10px;
+  }
+</style>
+
+<div class="flex d-flex flex-row mt-3 main-dash">
+  <div class="col-8 flex d-flex flex-column">
+    <div class="current-balance-info flex d-flex flex-row justify-content-around">
+      <div class="p-2 col-6">
+        <h4>Current Balance</h4>
+        <p id="login-time"><%= currUser.name %></p>
+      </div>
+      <div class="p-3 col-4">
+        <h1 id="initial-deposit">&#8377;<%= currUser.Account.Balance %></h1>
+      </div>
+    </div>
+    <div class="analysis flex d-flex flex-row justify-content-between mt-3 ml-4">
+      <div class="ml-4 in">
+        <h5>Monthly Expenditure</h5>
+        <h3>&#8377;<%= monthlyExpenditure %></h3>
+      </div>
+      <div class="out">
+        <h5>OUT</h5>
+        <h3>&#8377;<%= monthlyExpenditure %></h3>
+      </div>
+      <div class="interest">
+        <h5>Loan</h5>
+        <h3>&#8377;1000</h5>
+      </div>
+    </div>
+    <div class="transactions-info flex d-flex flex-row justify-content-evenly mt-3 mb-3">
+      <div class="p-4 col-7" style="font-size: x-large;">Transactions</div>
+      <div class="p-3 col-4">
+        <input type="text" id="search-bar" placeholder="Search by date (YYYY-MM-DD)" class="form-control">
+      </div>
+    </div>
+    <div class="ml-4 p-2 transactions-table flex d-flex flex-column justify-content-evenly mt-3" style="height: 400px; overflow-y: auto;">
+      <% if (currUser.Transactions.length === 0) { %>
+        <div class="no-transactions">
+          No transactions available.
+        </div>
+      <% } else { %>
+        <% currUser.Transactions.forEach(transaction => { %>
+          <div class="transaction-record">
+            <span class="transaction-date"><%= new Date(transaction.createdAt).toLocaleDateString() %></span>
+            <span class="transaction-amount">&#8377;<%= transaction.amount %></span>
+            <span class="transaction-type <%= transaction.type %>"><%= transaction.type === 'credit' ? 'Credit' : 'Debit' %></span>
+            <span class="copy-icon" data-transaction-id="<%= transaction.transaction_id %>">📋</span>
+          </div>
+        <% }) %>
+      <% } %>
+    </div>
+  </div>
+
+  <div class="col-4 mt-3 mb-3 flex d-flex flex-column">
+    <div>
+      <div class="row-1 flex d-flex flex-row">
+        <div class="personal-loan-calculator" style="height: 150px;">
+          <p style="text-align: center;"><i class="fa-solid fa-calculator"></i></p>
+          <a href="/loancalculator" style="text-align: center;">Personal Loan Calculator</a>
+        </div>
+        <div class="home-loan-calculator" style="height: 150px;">
+          <p style="text-align: center;"><i class="fa-solid fa-landmark-dome"></i></p>
+          <a href="/homeloan" style="text-align: center;">Home Loan Calculator</a>
+        </div>
+      </div>
+      <div class="row-2 flex d-flex flex-row">
+        <div class="personal-loan-calculator" style="height: 150px;">
+          <p style="text-align: center;"><i class="fa-regular fa-credit-card"></i></p>
+          <a href="/fixeddeposit" style="text-align: center;">Fixed Deposit Calculator</a>
+        </div>
+        <div class="home-loan-calculator" style="height: 150px;">
+          <p style="text-align: center;"><i class="fa-solid fa-money-bill-transfer"></i></p>
+          <a href="#" style="text-align: center;">Credit Card Calculator</a>
+        </div>
+      </div>
+    </div>
+    <div class="p-2 mt-3 account-item flex d-flex flex-row">
+      <a href="/info/<%= currUser._id %>">Account Info</a>
+    </div>
+    <div class="p-2 mt-3 account-item flex d-flex flex-row">
+      <a href="/c/transfer/<%= currUser._id %>">Transfer Money</a>
+    </div>
+    <div class="p-2 mt-3 account-item flex d-flex flex-row">
+      <a href="#">Withdraw</a>
+    </div>
+    <div class="p-2 mt-3 account-item flex d-flex flex-row">
+      <a href="#">Fixed Deposit</a>
+    </div>
+    <div class="p-2 mt-3 account-item flex d-flex flex-row">
+      <a href="/loans">Loans</a>
+    </div>
+    <div class="p-2 mt-3 account-item flex d-flex flex-row">
+      <a href="/close">Close Account</a>
+    </div>
+    
+  </div>
+</div>
+
+<script src="/js/dashboard.js"></script>
+<script>
+  document.querySelectorAll('.copy-icon').forEach(icon => {
+    icon.addEventListener('click', function() {
+      const transactionId = this.getAttribute('data-transaction-id');
+      navigator.clipboard.writeText(transactionId).then(() => {
+        alert('Transaction ID copied to clipboard!');
+      });
+    });
+  });
+
+  document.getElementById('search-bar').addEventListener('input', function() {
+    const searchTerm = this.value.trim();
+    const transactions = [...document.querySelectorAll('.transaction-record')];
+    const transactionsTable = document.querySelector('.transactions-table');
+
+    // Clear the transactions table
+    transactionsTable.innerHTML = '';
+
+    // If the search bar is empty, display all transactions
+    if (!searchTerm) {
+      transactions.forEach(transaction => {
+        transactionsTable.appendChild(transaction);
+      });
+    } else {
+      // Filter transactions based on the search term
+      const filteredTransactions = transactions.filter(transaction =>
+        transaction.querySelector('.transaction-date').textContent.includes(searchTerm)
+      );
+
+      // Append filtered transactions to the table
+      filteredTransactions.forEach(transaction => {
+        transactionsTable.appendChild(transaction);
+      });
+
+      // If no transactions match the search term, display a message
+      if (filteredTransactions.length === 0) {
+        transactionsTable.innerHTML = '<div class="no-transactions">No transactions available.</div>';
+      }
+    }
+  });
+</script>

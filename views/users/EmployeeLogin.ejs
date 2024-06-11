@@ -1,0 +1,22 @@
+<%- include("../includes/head.ejs"); %>
+<% layout("./layouts/boilerplate") %>
+
+    <div class="Container_RL offset-4 mt-3" style="background-color: white;">
+    <form action="/auth/Employee/login" method="post" class="login">
+        <div class="input-box">
+        <div class="title">Employee Login Page</div>
+        <label for="username">Employee Id:</label>
+        <input type="text" name="username" placeholder="Enter your ID"  required><br>
+        <label for="password">Password:</label>
+        <input type="password" name="password" placeholder="Enter your password"  required>
+        <!-- <input type="submit" value="Submit"> -->
+        <button type="submit" id="login">Login</button>
+        <br><br>
+        <div>Don't have account account?<a href="/auth/Employee/register">Register</a></div>
+        </div>
+    </form>
+</div>
+
+<script src="/js/dashboard.js"></script>
+    
+

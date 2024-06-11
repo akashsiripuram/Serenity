@@ -1,0 +1,38 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top" style="background-color: #e3f2fd;"  >
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/"><B style="color: #6ab36e;">Se</B>renity</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <% if(currUser&&currUser.person==="Employee") {%>
+            <a class="nav-link active" aria-current="page" href="/employeedashboard">Home</a>
+            <%}%>
+            <% if(currUser&&currUser.person==="Customer") {%>
+              <a class="nav-link active" aria-current="page" href="/customerdashboard">Home</a>
+              <%}%>
+              <!-- <% if(!currUser) {%>
+                <a class="nav-link active" aria-current="page" href="/customerdashboard">Home</a>
+                <%}%> -->
+
+          </li>
+          
+          
+          
+        </ul>
+        <div class="d-flex justify-content-evenly">
+          <% if(!currUser) {%>
+            <div class="p-2"><a href="/auth">SignUp</a></div>
+            <div class="p-2"><a href="/auth">Login</a></div>
+            <%}%>
+            <% if(currUser) {%>
+              <div class="p-2"><%=currUser.name%></div>
+              <div class="p-2"><a href="/auth/employee/logout" id="logout">Logout</a></div>
+              <%}%>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <script src="/js/dashboard.js"></script>

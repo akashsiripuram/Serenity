@@ -1,0 +1,164 @@
+<%- include("../includes/head"); %>
+<% layout("./layouts/boilerplate") %>
+<style>
+    /* styles.css */
+/* styles.css */
+body {
+    background-color: #f8f9fa;
+    font-family: 'Roboto', sans-serif;
+}
+
+.card {
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    border-radius: 15px 15px 0 0;
+    background: linear-gradient(135deg, #008080, #20b2aa);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-header h2 {
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.row {
+    margin-bottom: 15px;
+}
+
+.row .col-md-4 {
+    font-weight: 600;
+    color: #333;
+}
+
+.row .col-md-4 i {
+    margin-right: 8px;
+    color: #008080;
+}
+
+.row .col-md-8 {
+    color: #555;
+}
+
+.row:last-child {
+    margin-bottom: 0;
+}
+
+.col-md-4 i{
+    font-size: 1.5rem;
+    color: #007bff;
+    margin-right: 8px;
+}
+.col-md-8{
+    margin-top: auto;
+}
+
+</style>
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header text-center bg-primary text-white">
+            <h2>Customer Account Information</h2>
+        </div>
+        <div class="card-body">
+            <div class="row mb-3">
+                <div class="col-md-4 font-weight-bold">
+                    <i class="fas fa-user"></i> Name:
+                </div>
+                <div class="col-md-8">
+                    <%= info.name %>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-4 font-weight-bold">
+                    <i class="fas fa-envelope"></i> Email:
+                </div>
+                <div class="col-md-8">
+                    <%= info.email %>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-4 font-weight-bold">
+                    <i class="fas fa-user-tie"></i> Father's Name:
+                </div>
+                <div class="col-md-8">
+                    <%= info.sonof %>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-4 font-weight-bold">
+                    <i class="fas fa-map-marker-alt"></i> Address:
+                </div>
+                <div class="col-md-8">
+                    <%= info.address %>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-4 font-weight-bold">
+                    <i class="fas fa-phone"></i> Mobile Number:
+                </div>
+                <div class="col-md-8">
+                    <%= info.phone %>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-4 font-weight-bold">
+                    <i class="fas fa-calendar-alt"></i> Date of Birth:
+                </div>
+                <div class="col-md-8">
+                    <%= info.dateofbirth.toLocaleDateString() %>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-4 font-weight-bold">
+                    <i class="fas fa-user-circle"></i> Username:
+                </div>
+                <div class="col-md-8">
+                    <%= info.username %>
+                </div>
+            </div>
+            <% if (info.Account) { %>
+                <div class="row mb-3">
+                    <div class="col-md-4 font-weight-bold">
+                        <i class="fas fa-university"></i> Account Number:
+                    </div>
+                    <div class="col-md-8">
+                        <%= info.Account.AccountNumber %>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-4 font-weight-bold">
+                        <i class="fas fa-wallet"></i> Account Type:
+                    </div>
+                    <div class="col-md-8">
+                        <%= info.Account.AccountType %>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-4 font-weight-bold">
+                        <i class="fas fa-calendar-alt"></i> Date Created:
+                    </div>
+                    <div class="col-md-8">
+                        <%= info.Account.DateCreated %>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-4 font-weight-bold">
+                        <i class="fas fa-dollar-sign"></i> Available Balance:
+                    </div>
+                    <div class="col-md-8">
+                        <%= info.Account.Balance %>
+                    </div>
+                </div>
+            <% } %>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- Font Awesome -->
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>

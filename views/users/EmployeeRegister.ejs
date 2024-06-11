@@ -1,0 +1,107 @@
+<%- include("../includes/head"); %>
+<% layout("./layouts/boilerplate") %>
+<form action="/auth/Employee/register" method="post" novalidate class="needs-validation">
+    <div class="d-flex flex-column col-6 offset-3">
+        <div class="d-flex justify-content-center title">New Employee Registration</div>
+        <div class="d-flex flex-row">
+            <div class="p-2 input-box col-6">
+                <input type="text" class="form-control" id="username" name="username" placeholder="Username" required><br>
+                <input type="text" class="form-control" id="firstname" name="firstname" placeholder="First Name" required><br>
+                <input type="text" class="form-control" id="sonof" name="sonof" placeholder="Son Of" required><br>
+                <input type="text" class="form-control" id="contact" name="phone" placeholder="Contact Number" required><br>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Create New Password" required><br>
+            </div>
+            <div class="p-2 input-box col-6">
+                <input type="text" class="form-control" id="email" name="email" placeholder="someone@gmail.com" required><br>
+                <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Last Name" required><br>
+                <input type="date" class="form-control" id="dateofbirth" name="dateofbirth" placeholder="Date of Birth" required><br>
+                <input type="text" class="form-control" id="address" name="address" placeholder="Address" required><br>
+                <input type="password" class="form-control" id="confirm" name="confirm" placeholder="Confirm Password" required><br>
+            </div>
+        </div>
+        <div><input type="hidden" name="person" value="Employee" ></div>
+        <div class="btn col-8"><button>Submit</button></div>
+    </div>
+    </form>
+    
+<!-- <form action="/auth/Employee/register" method="post" novalidate class="needs-validation">
+<div class="d-flex flex-column col-6 offset-3">
+    
+    <div class="d-flex justify-content-center title">New Employee Registration</div>
+    <div class="d-flex flex-row">
+        
+        <div class="p-2 input-box col-6">
+            <input type="text" class="form-control" id="username" name="username" placeholder="Username" required><br>
+            <input type="text" class="form-control" id="firstname" name="firstname" placeholder="First Name" required><br>
+            <input type="text" class="form-control" id="sonof" name="sonof" placeholder="Son Of" required><br>
+            <input type="text"   class="form-control" id="contact" name="contact" placeholder="Contact Number" required><br>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Create New Password" required><br>
+        </div>
+        <div class="p-2 input-box col-6">
+            <input type="text" class="form-control" id="email" name="email" placeholder="someone@gmail.com" required><br>
+            <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Last Name" required><br>
+            <input type="date" class="form-control" id="dateofbirth" name="dateofbirth" placeholder="Date of Birth" required><br>
+            <input type="text" class="form-control" id="address" name="address" placeholder="Address" required><br>
+            <input type="password" class="form-control" id="confirm" name="confirm" placeholder="Confirm Password" required><br>
+        </div>
+    
+    </div>
+    <div class="btn col-8"><button>Submit</button></div>
+    
+</div>
+</form> -->
+    
+    <!-- <div class="Container_RL">
+        <div class="d-flex flex-row justify-content-evenly">
+        <form action="/auth/Employee/register" method="post" class="Registration" >
+            
+
+            <div class="input-box">
+                <div class="title">New Employee Registration</div><br>
+                <input type="text" id="username" name="username" placeholder="Username" required><br><br>
+                <input type="text" id="firstname" name="firstname" placeholder="First Name" required><br><br>
+                <input type="text" id="lastname" name="lastname" placeholder="Last Name" required><br><br>
+                <input type="text" id="email" name="email" placeholder="someone@gmail.com" required><br><br>
+                <input type="password" id="password" name="password" placeholder="Create New Password" required><br><br>
+                <input type="password" id="confirm" name="confirm" placeholder="Confirm Password" required><br><br>
+                <button type="submit">Register</button>
+            </div>
+            <div class="input-box">
+                <div class="title">New Employee Registration</div><br>
+                <input type="text" id="username" name="username" placeholder="Username" required><br><br>
+                <input type="text" id="firstname" name="firstname" placeholder="First Name" required><br><br>
+                <input type="text" id="lastname" name="lastname" placeholder="Last Name" required><br><br>
+                <input type="text" id="email" name="email" placeholder="someone@gmail.com" required><br><br>
+                <input type="password" id="password" name="password" placeholder="Create New Password" required><br><br>
+                <input type="password" id="confirm" name="confirm" placeholder="Confirm Password" required><br><br>
+                
+            </div>
+        
+        </form>
+    </div> -->
+    <!-- </div> -->
+    
+    
+
+
+ 
+
+<!-- <div class="Container_RL">
+    <form action="/auth/Employee/register" method="post" class="Registration" >
+        <div class="input-box">
+            <div class="title">New Employee Registration</div><br>
+            <div class="grid-container">
+                <input type="text" id="username" name="username" placeholder="Username" required>
+                <input type="text" id="firstname" name="firstname" placeholder="First Name" required>
+                <input type="text" id="lastname" name="lastname" placeholder="Last Name" required>
+                <input type="text" id="email" name="email" placeholder="someone@gmail.com" required>
+                <input type="password" id="password" name="password" placeholder="Create New Password" required>
+                <input type="password" id="confirm" name="confirm" placeholder="Confirm Password" required>
+                
+                
+                <input type="text" id="contact" name="contact" placeholder="Contact" required>
+                <button type="submit" class="submit-button">Register</button>
+            </div>
+        </div>
+    </form>
+</div> -->

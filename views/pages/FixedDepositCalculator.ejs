@@ -1,0 +1,195 @@
+<%- include("../includes/head"); %>
+<% layout("./layouts/boilerplate") %>
+<style>
+    /* styles.css */
+    body {
+        background-color: #f8f9fa;
+        font-family: 'Roboto', sans-serif;
+    }
+
+    .card {
+        border-radius: 15px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        margin-bottom: 2rem;
+    }
+
+    .card-header {
+        border-radius: 15px 15px 0 0;
+        background: linear-gradient(135deg, #008080, #20b2aa);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-header h2 {
+        font-weight: 700;
+        font-size: 1.5rem;
+    }
+
+    .loan-calc .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .loan-calc label {
+        display: block;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 0.5rem;
+    }
+
+    .loan-calc .form-range {
+        width: 100%;
+        -webkit-appearance: none;
+        appearance: none;
+        height: 10px;
+        background: #ddd;
+        outline: none;
+        opacity: 0.7;
+        -webkit-transition: .2s;
+        transition: opacity .2s;
+        border-radius: 5px;
+    }
+
+    .loan-calc .form-range::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        background: #007bff;
+        cursor: pointer;
+        border-radius: 50%;
+    }
+
+    .loan-calc .form-range::-moz-range-thumb {
+        width: 20px;
+        height: 20px;
+        background: #007bff;
+        cursor: pointer;
+        border-radius: 50%;
+    }
+
+    .loan-calc .form-text {
+        color: #007bff;
+        font-size: 1rem;
+        margin-top: 0.5rem;
+    }
+
+    .loan-calc button {
+        background-color: #007bff;
+        color: #fff;
+        padding: 0.75rem;
+        font-size: 1.25rem;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+    }
+
+    .loan-calc button:hover {
+        background-color: #0056b3;
+    }
+
+    #fd-total, #home-cal-total {
+        font-size: 1.5rem;
+        color: #333;
+        margin-bottom: 1.5rem;
+    }
+
+    #chart, #home-chart {
+        margin-top: 1.5rem;
+    }
+</style>
+
+
+
+    <div class="container mt-5">
+        <!-- Fixed Deposit Calculator -->
+        <div class="card">
+            <div class="card-header text-center bg-primary text-white">
+                <h2>Fixed Deposit Calculator</h2>
+            </div>
+            <div class="card-body">
+                <div class="loan-calc">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="fd-amount">Deposit Amount</label>
+                                <input type="range" class="form-range" min="10000" max="1000000" id="fd-amount" value="10000">
+                                <p id="fd-amount-value" class="form-text">Deposit Amount: ₹<span>10,000</span></p>
+                            </div>
+                            <div class="form-group">
+                                <label for="fd-interest-rate">Interest Rate (per annum)</label>
+                                <input type="range" class="form-range" min="1" max="15" id="fd-interest-rate" value="1">
+                                <p id="fd-interest-rate-value" class="form-text">Interest Rate: <span>1</span>%</p>
+                            </div>
+                            <div class="form-group">
+                                <label for="fd-tenure">Tenure (in months)</label>
+                                <input type="range" class="form-range" min="6" max="120" id="fd-tenure" value="6">
+                                <p id="fd-tenure-value" class="form-text">Tenure: <span>6</span> months</p>
+                            </div>
+                            <button id="fd-cal-deposit" class="btn mt-3" style="background-color: linear-gradient(135deg, #008080, #20b2aa) !important;">Calculate</button>
+                        </div>
+                        <div class="col-md-6 text-center">
+                            <h3 id="fd-total" class="mt-3">Maturity Amount: ₹10000</h3>
+                            <div id="fd-chart"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="fd-calculator.js"></script>
+
+    <script>
+        
+    const fdAmount = document.getElementById('fd-amount');
+    const fdInterestRate = document.getElementById('fd-interest-rate');
+    const fdTenure = document.getElementById('fd-tenure');
+    const fdAmountValue = document.getElementById('fd-amount-value').querySelector('span');
+    const fdInterestRateValue = document.getElementById('fd-interest-rate-value').querySelector('span');
+    const fdTenureValue = document.getElementById('fd-tenure-value').querySelector('span');
+    const fdTotal = document.getElementById('fd-total');
+    const fdChart = document.getElementById('fd-chart');
+    const calculateButton = document.getElementById('fd-cal-deposit');
+
+    function calculateFD() {
+    const principal = parseInt(fdAmount.value);
+    const rate = parseFloat(fdInterestRate.value) / 100;
+    const tenure = parseInt(fdTenure.value) / 12;
+    
+    const interestEarned = principal * rate * tenure;
+    const maturityAmount = principal + interestEarned;
+
+    fdTotal.innerHTML = `Maturity Amount: ₹${maturityAmount.toFixed(2)}`;
+
+    const chartOptions = {
+        chart: {
+            type: 'pie'
+        },
+        series: [principal, interestEarned],
+        labels: ['Principal', 'Interest Earned'],
+        colors: ['#007bff', '#20b2aa']
+    };
+
+    const chart = new ApexCharts(fdChart, chartOptions);
+    chart.render();
+}
+
+     
+
+    fdAmount.addEventListener('input', function () {
+        fdAmountValue.textContent = fdAmount.value.toLocaleString();
+    });
+
+    fdInterestRate.addEventListener('input', function () {
+        fdInterestRateValue.textContent = fdInterestRate.value;
+    });
+
+    fdTenure.addEventListener('input', function () {
+        fdTenureValue.textContent = fdTenure.value;
+    });
+
+    calculateButton.addEventListener('click', calculateFD);
+
+    </script>
+

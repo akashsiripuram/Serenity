@@ -1,0 +1,139 @@
+<%- include("../includes/head"); %>
+<% layout("./layouts/boilerplate") %>
+<style>
+    /* styles.css */
+    body {
+        background-color: #f8f9fa;
+        font-family: 'Roboto', sans-serif;
+    }
+
+    .card {
+        border-radius: 15px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        margin-bottom: 2rem;
+    }
+
+    .card-header {
+        border-radius: 15px 15px 0 0;
+        background: linear-gradient(135deg, #008080, #20b2aa);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-header h2 {
+        font-weight: 700;
+        font-size: 1.5rem;
+    }
+
+    .loan-calc .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .loan-calc label {
+        display: block;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 0.5rem;
+    }
+
+    .loan-calc .form-range {
+        width: 100%;
+        -webkit-appearance: none;
+        appearance: none;
+        height: 10px;
+        background: #ddd;
+        outline: none;
+        opacity: 0.7;
+        -webkit-transition: .2s;
+        transition: opacity .2s;
+        border-radius: 5px;
+    }
+
+    .loan-calc .form-range::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        background: #007bff;
+        cursor: pointer;
+        border-radius: 50%;
+    }
+
+    .loan-calc .form-range::-moz-range-thumb {
+        width: 20px;
+        height: 20px;
+        background: #007bff;
+        cursor: pointer;
+        border-radius: 50%;
+    }
+
+    .loan-calc .form-text {
+        color: #007bff;
+        font-size: 1rem;
+        margin-top: 0.5rem;
+    }
+
+    .loan-calc button {
+        background-color: #007bff;
+        color: #fff;
+        padding: 0.75rem;
+        font-size: 1.25rem;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+    }
+
+    .loan-calc button:hover {
+        background-color: #0056b3;
+    }
+
+    #cal-total, #home-cal-total {
+        font-size: 1.5rem;
+        color: #333;
+        margin-bottom: 1.5rem;
+    }
+
+    #chart, #home-chart {
+        margin-top: 1.5rem;
+    }
+</style>
+
+<div class="container mt-5">
+    <!-- Home Loan EMI Calculator -->
+    <div class="card">
+        <div class="card-header text-center bg-primary text-white">
+            <h2>Home Loan EMI Calculator</h2>
+        </div>
+        <div class="card-body">
+            <div class="loan-calc">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="home-loan-amount">Loan Amount</label>
+                            <input type="range" class="form-range" min="100000" max="10000000" id="home-loan-amount" value="100000">
+                            <p id="home-loan-amount-value" class="form-text">Loan Amount: ₹<span>100,000</span></p>
+                        </div>
+                        <div class="form-group">
+                            <label for="home-interest-rate">Interest Rate (per month)</label>
+                            <input type="range" class="form-range" min="1" max="15" id="home-interest-rate" value="1">
+                            <p id="home-interest-rate-value" class="form-text">Interest Rate: <span>1</span>%</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="home-tenure">Tenure (in months)</label>
+                            <input type="range" class="form-range" min="12" max="360" id="home-tenure" value="12">
+                            <p id="home-tenure-value" class="form-text">Tenure: <span>12</span> months</p>
+                        </div>
+                        <button id="home-cal-loan" class="btn mt-3" style="background-color: linear-gradient(135deg, #008080, #20b2aa) !important;">Calculate</button>
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <h3 id="home-cal-total" class="mt-3">EMI: ₹8333.33/month <br> Total Payable: ₹100000</h3>
+                        <div id="home-chart"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script src="/js/home-loan-calculator.js"></script>

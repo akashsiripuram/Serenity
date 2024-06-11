@@ -1,0 +1,111 @@
+<%- include("../includes/head"); %>
+<% layout("./layouts/boilerplate") %>
+
+<style>
+  body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f5f7fa;
+    color: #333;
+    margin: 0;
+    padding: 0;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  h2 {
+    color: #45a049;
+    display: inline-block;
+    margin-right: 20px;
+  }
+
+  .btn-primary {
+    background-color: #45a049;
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.3s;
+  }
+
+  .btn-primary:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+  }
+
+  .table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+  }
+
+  .table th,
+  .table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .table th {
+    background-color: #f1f1f1;
+    color: #333;
+    font-weight: bold;
+  }
+
+  .table tbody tr:hover {
+    background-color: #f9f9f9;
+  }
+
+  .status-approved {
+    color: green;
+  }
+
+  .status-pending {
+    color: orange;
+  }
+</style>
+
+<div class="container">
+  <div style="display: flex; justify-content: space-between; align-items: center;">
+    <h2>Your Loans</h2>
+    <a href="/requestloan" class="btn btn-primary">Request a New Loan</a>
+  </div>
+
+  <% if (currUser && currUser.loans.length > 0) { %>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Loan ID</th>
+          <th>Type</th>
+          <th>Amount</th>
+          <th>Tenure (months)</th>
+          <th>Status</th>
+          <th>Approval</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% currUser.loans.forEach(loan => { %>
+          <tr>
+            <td><%= loan.loan_id %></td>
+            <td><%= loan.loantype %></td>
+            <td>₹<%= loan.amount %></td>
+            <td><%= loan.tenure %></td>
+            <td class="<%= loan.isApproved ? 'status-approved' : 'status-pending' %>"><%= loan.status %></td>
+            <td><%= loan.isApproved ? 'Approved' : 'Pending' %></td>
+            <td><%= new Date(loan.date).toLocaleDateString() %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  <% } else { %>
+    <h2>No Loans Found</h2>
+  <% } %>
+</div>
